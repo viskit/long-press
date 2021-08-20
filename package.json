@@ -1,0 +1,28 @@
+{
+  "name": "@viskit/long-press",
+  "version": "0.0.1",
+  "description": "long press",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "webpack serve --config node_modules/@viskit/webpack-configs/start.config.js",
+    "build": "webpack --config node_modules/@viskit/webpack-configs/build.config.js",
+    "build:lib": "webpack --config node_modules/@viskit/webpack-configs/lib.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viskit/long-press.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viskit/long-press/issues"
+  },
+  "homepage": "https://github.com/viskit/long-press#readme",
+  "devDependencies": {
+    "@viskit/webpack-configs": "^0.0.1",
+    "lit": "^2.0.0-rc.3"
+  },
+  "dependencies": {
+  }
+}

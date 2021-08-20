@@ -1,0 +1,3 @@
+{
+  "extends": "@viskit/webpack-configs/tsconfig.base.json"
+}
