@@ -4,8 +4,6 @@ export const register = (dom: Document | Element | ShadowRoot = document) => {
     startY = 0,
     ct;
 
-
-
   const pointerdownHandle = (e: PointerEvent) => {
     startX = e.clientX;
     startY = e.clientY;

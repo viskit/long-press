@@ -1,5 +1,8 @@
 # long-press
-long press 
+
+long press for ESM & shadow dom.
+
+Inspired by https://github.com/john-doherty/long-press-event  Thanks!
 
 # Install
     npm i @viskit/long-press

@@ -1,3 +1,6 @@
 {
-  "extends": "@viskit/webpack-configs/tsconfig.base.json"
+  "extends": "@viskit/webpack-configs/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  }
 }

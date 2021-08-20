@@ -41,6 +41,22 @@ document.body.innerHTML = `
         height:100px;
         border:3px solid green;
     }
+
+    @keyframes anim {
+      0% {
+        transform: rotate(-1deg);
+      }
+      30% {
+        transform: rotate(.5deg);
+      }
+      60% {
+        transform: rotate(2deg);
+      }
+    }
+
+    .anim{
+      animation: anim 0.3s infinite;
+    }
     </style>
     <div id="box1">
         <div id="box2">
@@ -54,6 +70,9 @@ register(box1);
 register(box2);
 
 box1.addEventListener("long-press",()=>{
-  console.log("box1  long presss");
+   box1.classList.add("anim");
 });
 
+box2.addEventListener("long-press",()=>{
+  box2.classList.add("anim");
+});
