@@ -7,6 +7,8 @@ Inspired by https://github.com/john-doherty/long-press-event  Thanks!
 # Install
     npm i @viskit/long-press
 
+# [DEMO](https://codesandbox.io/s/long-press-cxi3c)
+
 # API
 
 ```ts
