@@ -11,12 +11,7 @@ export const register = (dom: Document | Element | ShadowRoot = document) => {
     const delay = target.dataset.delay ? +target.dataset.delay : 300;
     const path = e.composedPath();
     ct = setTimeout(() => {
-      for (let target of path) {
         target.dispatchEvent(new PointerEvent("long-press", {clientX:startX,clientY:startY}));
-        if (target === dom) {
-          break;
-        }
-      }
     }, delay);
   };
 
@@ -32,19 +27,19 @@ export const register = (dom: Document | Element | ShadowRoot = document) => {
   const clear = () => {
     clearTimeout(ct);
   };
+ 
+  dom.addEventListener("pointerdown", pointerdownHandle, false);
 
-  dom.addEventListener("pointerdown", pointerdownHandle, true);
+  dom.addEventListener("pointermove", pointermoveHandle, false);
 
-  dom.addEventListener("pointermove", pointermoveHandle, true);
+  dom.addEventListener("pointerup", clear, false);
 
-  dom.addEventListener("pointerup", clear, true);
-
-  dom.addEventListener("pointercancel", clear, true);
+  dom.addEventListener("pointercancel", clear, false);
 
   return () => {
-    dom.removeEventListener("pointerdown", pointerdownHandle, true);
-    dom.removeEventListener("pointermove", pointermoveHandle, true);
-    dom.removeEventListener("pointerup", clear, true);
-    dom.removeEventListener("pointercancel", clear, true);
+    dom.removeEventListener("pointerdown", pointerdownHandle, false);
+    dom.removeEventListener("pointermove", pointermoveHandle, false);
+    dom.removeEventListener("pointerup", clear, false);
+    dom.removeEventListener("pointercancel", clear, false);
   };
 };

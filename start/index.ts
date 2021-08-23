@@ -1,25 +1,46 @@
 import { register } from "../src/index";
-import { LitElement, html, EventPart } from "lit";
+import { LitElement, css,html, EventPart } from "lit";
+import {query } from "lit/decorators.js";
 
 register();
 
 class MyComp extends LitElement {
 
+  static styles = css`
+    :host{
+      display: block;
+    }
+  `
+
+  @query(".me")
+  me:HTMLElement;
+  
+
+  @query(".wrap")
+  wrap:HTMLElement;
 
   firstUpdated() {
 
-      register(this.shadowRoot);
+    register(this.shadowRoot);
 
+    this.me.addEventListener("long-press",(e)=>{
+        console.log("inner long press")
+    },true);
+
+    this.wrap.addEventListener("long-press",(e)=>{
+      console.log("innerwrap long press")
+  },true);
   }
+
   render() {
     return html`
-      <div class="wrap" data-delay="3000" @long-press=${(e) => console.log(111, e.target)}>
+      <div class="wrap" data-delay="3000">
         EV DDD
 
-        <div
+        <div class="me"
           style="width:50px;height:50px;border:1px solid red"
-          @long-press=${(e) => console.log(222, e.target)}
         >
+
           hi
         </div>
       </div>
@@ -64,15 +85,36 @@ document.body.innerHTML = `
         </div>
     </div>
     `;
+const comp = document.querySelector("my-comp");
 const box1 = document.querySelector("#box1");
 const box2 = document.querySelector("#box2");
-register(box1);
-register(box2);
 
-box1.addEventListener("long-press",()=>{
-   box1.classList.add("anim");
-});
+comp.addEventListener(
+  "long-press",
+  () => {
+    console.log("comp");
+  }
+  ,true
+);
 
-box2.addEventListener("long-press",()=>{
-  box2.classList.add("anim");
-});
+
+
+box2.addEventListener(
+  "long-press",
+  () => {
+    console.log("box2");
+
+    box2.classList.add("anim");
+  },
+  false
+);
+
+
+box1.addEventListener(
+  "long-press",
+  () => {
+    console.log("box1");
+    box1.classList.add("anim");
+  },
+  false
+);
