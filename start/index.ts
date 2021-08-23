@@ -21,7 +21,7 @@ class MyComp extends LitElement {
 
   firstUpdated() {
 
-    register(this.shadowRoot);
+    register(this);
 
     this.me.addEventListener("long-press",(e)=>{
         console.log("inner long press")

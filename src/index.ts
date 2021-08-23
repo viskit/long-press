@@ -1,9 +1,12 @@
-const rootMap = new Map();
+const rootSet = new Set();
 
 export const register = (
   dom: Document | Element | ShadowRoot = document
 ): (() => void) | void => {
-  if (!rootMap.has(dom.getRootNode())) {
+  const root = dom.getRootNode();
+  if (!rootSet.has(root)) {
+    rootSet.add(root);
+
     let startX = 0,
       startY = 0,
       ct;
