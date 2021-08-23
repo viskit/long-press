@@ -1,4 +1,3 @@
-
 export const register = (dom: Document | Element | ShadowRoot = document) => {
   let startX = 0,
     startY = 0,
@@ -10,8 +9,14 @@ export const register = (dom: Document | Element | ShadowRoot = document) => {
 
     const target = e.target as HTMLElement;
     const delay = target.dataset.delay ? +target.dataset.delay : 300;
+    const path = e.composedPath();
     ct = setTimeout(() => {
-      target.dispatchEvent(new Event("long-press", { ...e }));
+      for (let target of path) {
+        target.dispatchEvent(new PointerEvent("long-press", {clientX:startX,clientY:startY}));
+        if (target === dom) {
+          break;
+        }
+      }
     }, delay);
   };
 
