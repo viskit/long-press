@@ -6,21 +6,52 @@ export const register = (
   const root = dom.getRootNode();
   if (!rootSet.has(root)) {
     rootSet.add(root);
-
     let startX = 0,
       startY = 0,
       ct;
 
     const pointerdownHandle = (e: PointerEvent) => {
-      startX = e.clientX;
-      startY = e.clientY;
+      const {
+        clientX,
+        clientY,
+        pointerType,
+        width,
+        height,
+        pressure,
+        tangentialPressure,
+        tiltX,
+        tiltY,
+        twist,
+        isPrimary,
+      } = e;
 
       const target = e.target as HTMLElement;
-      const delay = target.dataset.delay ? +target.dataset.delay : 300;
-      const path = e.composedPath();
+      let delay = 300;
+      const els = e.composedPath() as HTMLElement[];
+      for(let el of els){
+        if(!(el instanceof Element)) break;
+        const longpressDelay = el.dataset.longpressDelay;
+        if(longpressDelay){
+          delay = +longpressDelay;
+          break;
+        }
+      }
+
       ct = setTimeout(() => {
         target.dispatchEvent(
-          new PointerEvent("long-press", { clientX: startX, clientY: startY })
+          new PointerEvent("long-press", {
+            clientX,
+            clientY,
+            pointerType,
+            width,
+            height,
+            pressure,
+            tangentialPressure,
+            tiltX,
+            tiltY,
+            twist,
+            isPrimary,
+          })
         );
       }, delay);
     };
@@ -38,19 +69,20 @@ export const register = (
       clearTimeout(ct);
     };
 
-    dom.addEventListener("pointerdown", pointerdownHandle, false);
+    root.addEventListener("pointerdown", pointerdownHandle, true);
 
-    dom.addEventListener("pointermove", pointermoveHandle, false);
+    root.addEventListener("pointermove", pointermoveHandle, true);
 
-    dom.addEventListener("pointerup", clear, false);
-
-    dom.addEventListener("pointercancel", clear, false);
+    root.addEventListener("pointerup", clear, true);
+    root.addEventListener("wheel", clear, true);
+    root.addEventListener("scroll", clear, true);
+    root.addEventListener("pointercancel", clear, true);
 
     return () => {
-      dom.removeEventListener("pointerdown", pointerdownHandle, false);
-      dom.removeEventListener("pointermove", pointermoveHandle, false);
-      dom.removeEventListener("pointerup", clear, false);
-      dom.removeEventListener("pointercancel", clear, false);
+      root.removeEventListener("pointerdown", pointerdownHandle, true);
+      root.removeEventListener("pointermove", pointermoveHandle, true);
+      root.removeEventListener("pointerup", clear, true);
+      root.removeEventListener("pointercancel", clear, true);
     };
   }
 };

@@ -1,46 +1,48 @@
 import { register } from "../src/index";
-import { LitElement, css,html, EventPart } from "lit";
-import {query } from "lit/decorators.js";
-
+import { LitElement, css, html, EventPart } from "lit";
+import { query } from "lit/decorators.js";
+// import "long-press-event";
 register();
 
 class MyComp extends LitElement {
-
   static styles = css`
-    :host{
+    :host {
       display: block;
     }
-  `
+  `;
 
   @query(".me")
-  me:HTMLElement;
-  
+  me: HTMLElement;
 
   @query(".wrap")
-  wrap:HTMLElement;
+  wrap: HTMLElement;
 
   firstUpdated() {
+    // register(this.wrap);
 
-    register(this);
+    this.me.addEventListener(
+      "long-press",
+      (e) => {
+        console.log("inner long press");
+      },
+      true
+    );
 
-    this.me.addEventListener("long-press",(e)=>{
-        console.log("inner long press")
-    },true);
-
-    this.wrap.addEventListener("long-press",(e)=>{
-      console.log("innerwrap long press")
-  },true);
+    this.wrap.addEventListener(
+      "long-press",
+      (e) => {
+        console.log("innerwrap long press");
+      },
+      true
+    );
   }
 
   render() {
     return html`
-      <div class="wrap" data-delay="3000">
-        EV DDD
+      <div class="wrap" data-longpress-delay="3000">
+        <div>dddddddd</div>
 
-        <div class="me"
-          style="width:50px;height:50px;border:1px solid red"
-        >
-
+        <div class="me" style="width:50px;height:50px;border:1px solid red">
           hi
         </div>
       </div>
@@ -81,7 +83,7 @@ document.body.innerHTML = `
     </style>
     <div id="box1">
         <div id="box2">
-            <my-comp></my-comp>
+            <my-comp data-longpress-delay="4000"></my-comp>
         </div>
     </div>
     `;
@@ -91,13 +93,12 @@ const box2 = document.querySelector("#box2");
 
 comp.addEventListener(
   "long-press",
-  () => {
+  (e) => {
+    // e.stopPropagation();
     console.log("comp");
-  }
-  ,true
+  },
+  false
 );
-
-
 
 box2.addEventListener(
   "long-press",
@@ -106,9 +107,8 @@ box2.addEventListener(
 
     box2.classList.add("anim");
   },
-  false
+  true
 );
-
 
 box1.addEventListener(
   "long-press",

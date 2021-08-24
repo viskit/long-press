@@ -1,6 +1,6 @@
 {
   "name": "@viskit/long-press",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "long press",
   "main": "dist/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@viskit/webpack-configs": "^0.0.1",
     "lit": "^2.0.0-rc.3",
+    "long-press-event": "^2.4.4",
     "tslib": "^2.3.1"
   }
 }
