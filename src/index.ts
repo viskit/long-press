@@ -28,10 +28,10 @@ export const register = (
       const target = e.target as HTMLElement;
       let delay = 300;
       const els = e.composedPath() as HTMLElement[];
-      for(let el of els){
-        if(!(el instanceof Element)) break;
-        const longpressDelay = el.dataset.longpressDelay;
-        if(longpressDelay){
+      for (let el of els) {
+        if (el === root) break;
+        const longpressDelay = el.dataset && el.dataset.longpressDelay;
+        if (longpressDelay) {
           delay = +longpressDelay;
           break;
         }

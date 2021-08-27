@@ -32,11 +32,5 @@ register();
 register(customComp.shadowRoot);
 ```
 
-#### part
-```ts
-const part = document.querySelector("#part");
-register(part);
-```
-
 # License
 MIT
