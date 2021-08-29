@@ -18,7 +18,6 @@ class MyComp extends LitElement {
   wrap: HTMLElement;
 
   firstUpdated() {
-    // register(this.wrap);
 
     this.me.addEventListener(
       "long-press",
